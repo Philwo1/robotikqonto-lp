@@ -129,22 +129,23 @@
     </div>
 
     <div class="calculator-box">
-      <h3>Ihr Finanzierungsrechner</h3>
-      <div class="range-label">Anschaffungskosten netto</div>
+        <h3 style="margin-bottom: 2rem; color: #0a0a23; font-size: 1.1rem; text-align: center;">Ihr Finanzierungsrechner</h3>
+      <div class="range-label">Anschaffungskosten</div>
       <input type="range" id="kosten" min="2000" max="1000000" value="20000" step="1000" class="range-input">
       <div class="range-value" id="kosten-wert">20.000 €</div>
 
-      <div class="range-label">Laufzeit (Monate)</div>
+      <div class="range-label">Laufzeit</div>
       <input type="range" id="laufzeit" min="12" max="72" value="36" step="12" class="range-input">
       <div class="range-value" id="laufzeit-wert">36 Monate</div>
 
-      <div class="result" id="rate">Rate: 0 € / Monat*</div>
+      <div class="result" id="rate">Rate: 0 € / Monat</div>
 
       <button class="button">Jetzt anfragen</button>
+      <p style="font-size: 0.85rem; color: #888; margin-top: 1rem;">Bei dieser Berechnung handelt es sich um ein freibleibendes und unverbindliches Angebot der akf bank GmbH &amp; Co KG für Unternehmer.</p>
     </div>
   </div>
 
-  <script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
       const kostenInput = document.getElementById('kosten');
       const laufzeitInput = document.getElementById('laufzeit');
@@ -156,14 +157,17 @@
         document.getElementById('kosten-wert').innerText = kosten.toLocaleString('de-DE') + ' €';
         document.getElementById('laufzeit-wert').innerText = laufzeit + ' Monate';
 
-        const rate = kosten / laufzeit;
-        document.getElementById('rate').innerText = 'Rate: ' + Math.round(rate).toLocaleString('de-DE') + ' € / Monat*';
+        const zinssatz = 0.0569;
+        const raten = laufzeit;
+        const zinsfaktor = zinssatz / 12;
+        const rate = (kosten * zinsfaktor) / (1 - Math.pow(1 + zinsfaktor, -raten));
+        document.getElementById('rate').innerText = 'Rate: ' + rate.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' € / Monat';
       }
 
       kostenInput.addEventListener('input', updateFinanzierungsrechner);
       laufzeitInput.addEventListener('input', updateFinanzierungsrechner);
       updateFinanzierungsrechner();
     });
-  </script>
+</script>
 </body>
 </html>
