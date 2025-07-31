@@ -107,35 +107,35 @@
 
     <div class="info-grid">
       <div class="info-box">
-        <img src="https://img.icons8.com/ios-filled/50/price-tag-euro.png" alt="Preisgestaltung" />
-        <h3>Klare Preisgestaltung</h3>
-        <p>Keine Zinsen – nur eine im Voraus vereinbarte Gebühr.</p>
-      </div>
-      <div class="info-box">
-        <img src="https://img.icons8.com/ios-filled/50/money.png" alt="Rechnungen" />
-        <h3>Keine großen monatlichen Rechnungen</h3>
-        <p>Rückzahlung erfolgt anteilig aus Ihren Einnahmen.</p>
-      </div>
-      <div class="info-box">
         <img src="https://img.icons8.com/ios-filled/50/lightning-bolt.png" alt="Schnelligkeit" />
         <h3>Schnelle Bearbeitung</h3>
-        <p>Entscheidung innerhalb von 48 Stunden.</p>
+        <p>Dank digitaler Prozesse</p>
       </div>
       <div class="info-box">
-        <img src="https://img.icons8.com/ios-filled/50/settings.png" alt="Anpassung" />
-        <h3>Maßgeschneiderte Angebote</h3>
-        <p>Bis zum 2-fachen Ihrer monatlichen Einnahmen finanzierbar.</p>
+        <img src="https://img.icons8.com/ios-filled/50/settings.png" alt="Laufzeiten" />
+        <h3>Flexible Laufzeiten</h3>
+        <p>24–72 Monate</p>
+      </div>
+      <div class="info-box">
+        <img src="https://img.icons8.com/ios-filled/50/money.png" alt="Finanzierung" />
+        <h3>Finanzierung ab 2.000 €</h3>
+        <p>Bis zu 1.000.000 € möglich</p>
+      </div>
+      <div class="info-box">
+        <img src="https://img.icons8.com/ios-filled/50/handshake.png" alt="Partnerschaft" />
+        <h3>Attraktive Konditionen</h3>
+        <p>Dank Partnerschaft mit Qonto</p>
       </div>
     </div>
 
     <div class="calculator-box">
       <h3>Ihr Finanzierungsrechner</h3>
       <div class="range-label">Anschaffungskosten netto</div>
-      <input type="range" id="kosten" min="2000" max="1000000" value="20000" step="1000" class="range-input" oninput="updateFinanzierungsrechner()">
+      <input type="range" id="kosten" min="2000" max="1000000" value="20000" step="1000" class="range-input">
       <div class="range-value" id="kosten-wert">20.000 €</div>
 
       <div class="range-label">Laufzeit (Monate)</div>
-      <input type="range" id="laufzeit" min="24" max="72" value="36" step="6" class="range-input" oninput="updateFinanzierungsrechner()">
+      <input type="range" id="laufzeit" min="12" max="72" value="36" step="12" class="range-input">
       <div class="range-value" id="laufzeit-wert">36 Monate</div>
 
       <div class="result" id="rate">Rate: 0 € / Monat*</div>
@@ -145,17 +145,25 @@
   </div>
 
   <script>
-    function updateFinanzierungsrechner() {
-      const kosten = document.getElementById('kosten').value;
-      const laufzeit = document.getElementById('laufzeit').value;
+    document.addEventListener("DOMContentLoaded", function () {
+      const kostenInput = document.getElementById('kosten');
+      const laufzeitInput = document.getElementById('laufzeit');
 
-      document.getElementById('kosten-wert').innerText = parseInt(kosten).toLocaleString('de-DE') + ' €';
-      document.getElementById('laufzeit-wert').innerText = laufzeit + ' Monate';
+      function updateFinanzierungsrechner() {
+        const kosten = parseInt(kostenInput.value);
+        const laufzeit = parseInt(laufzeitInput.value);
 
-      const rate = parseInt(kosten) / parseInt(laufzeit);
-      document.getElementById('rate').innerText = 'Rate: ' + Math.round(rate).toLocaleString('de-DE') + ' € / Monat*';
-    }
-    window.onload = updateFinanzierungsrechner;
+        document.getElementById('kosten-wert').innerText = kosten.toLocaleString('de-DE') + ' €';
+        document.getElementById('laufzeit-wert').innerText = laufzeit + ' Monate';
+
+        const rate = kosten / laufzeit;
+        document.getElementById('rate').innerText = 'Rate: ' + Math.round(rate).toLocaleString('de-DE') + ' € / Monat*';
+      }
+
+      kostenInput.addEventListener('input', updateFinanzierungsrechner);
+      laufzeitInput.addEventListener('input', updateFinanzierungsrechner);
+      updateFinanzierungsrechner();
+    });
   </script>
 </body>
 </html>
