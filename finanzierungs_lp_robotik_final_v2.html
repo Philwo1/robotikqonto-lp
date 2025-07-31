@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robotikfinanz Finanzierung</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9fb;
+      margin: 0;
+      padding: 0;
+      color: #1c1c1e;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #0a0a23;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-weight: 400;
+      font-size: 1.25rem;
+      color: #444;
+      margin-bottom: 2rem;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .info-box {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .info-box h3 {
+      margin-top: 1rem;
+      color: #0a0a23;
+      font-size: 1.1rem;
+    }
+    .info-box p {
+      color: #666;
+      font-size: 0.95rem;
+    }
+    .calculator-box {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .calculator-box h3 {
+      margin-bottom: 1rem;
+    }
+    .range-label {
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      color: #333;
+      text-align: left;
+    }
+    .range-value {
+      text-align: right;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    .range-input {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+    .result {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0a0a23;
+      margin: 1.5rem 0;
+    }
+    .button {
+      background: #0a0a23;
+      color: white;
+      padding: 1rem;
+      border: none;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .button:hover {
+      background: #2c2c3a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Optimieren Sie Ihr Geschäft</h1>
+    <h2>Schließen Sie sich anderen Unternehmern an, die mit robotikfinanz wachsen</h2>
+    <h2 style="font-weight: 400; font-size: 1.25rem; color: #444; margin-top: -1rem;">In Partnerschaft mit Qonto</h2>
+
+    <div class="info-grid">
+      <div class="info-box">
+        <img src="https://img.icons8.com/ios-filled/50/lightning-bolt.png" alt="Schnelligkeit" />
+        <h3>Schnelle Bearbeitung</h3>
+        <p>Dank digitaler Prozesse</p>
+      </div>
+      <div class="info-box">
+        <img src="https://img.icons8.com/ios-filled/50/settings.png" alt="Laufzeiten" />
+        <h3>Flexible Laufzeiten</h3>
+        <p>24–72 Monate</p>
+      </div>
+      <div class="info-box">
+        <img src="https://img.icons8.com/ios-filled/50/money.png" alt="Finanzierung" />
+        <h3>Finanzierung ab 2.000 €</h3>
+        <p>Bis zu 1.000.000 € möglich</p>
+      </div>
+      <div class="info-box">
+        <img src="https://img.icons8.com/ios-filled/50/handshake.png" alt="Partnerschaft" />
+        <h3>Attraktive Konditionen</h3>
+        <p>Dank Partnerschaft mit Qonto</p>
+      </div>
+    </div>
+
+    <div class="calculator-box">
+        <h3 style="margin-bottom: 2rem; color: #0a0a23; font-size: 1.1rem; text-align: center;">Ihr Finanzierungsrechner</h3>
+      <div class="range-label">Anschaffungskosten</div>
+      <input type="range" id="kosten" min="2000" max="1000000" value="20000" step="1000" class="range-input">
+      <div class="range-value" id="kosten-wert">20.000 €</div>
+
+      <div class="range-label">Laufzeit</div>
+      <input type="range" id="laufzeit" min="12" max="72" value="36" step="12" class="range-input">
+      <div class="range-value" id="laufzeit-wert">36 Monate</div>
+
+      <div class="result" id="rate">Rate: 0 € / Monat</div>
+
+      <button class="button">Jetzt anfragen</button>
+      <p style="font-size: 0.85rem; color: #888; margin-top: 1rem;">Bei dieser Berechnung handelt es sich um ein freibleibendes und unverbindliches Angebot der akf bank GmbH &amp; Co KG für Unternehmer.</p>
+    </div>
+  </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const kostenInput = document.getElementById('kosten');
+      const laufzeitInput = document.getElementById('laufzeit');
+
+      function updateFinanzierungsrechner() {
+        const kosten = parseInt(kostenInput.value);
+        const laufzeit = parseInt(laufzeitInput.value);
+
+        document.getElementById('kosten-wert').innerText = kosten.toLocaleString('de-DE') + ' €';
+        document.getElementById('laufzeit-wert').innerText = laufzeit + ' Monate';
+
+        const zinssatz = 0.0569;
+        const raten = laufzeit;
+        const zinsfaktor = zinssatz / 12;
+        const rate = (kosten * zinsfaktor) / (1 - Math.pow(1 + zinsfaktor, -raten));
+        document.getElementById('rate').innerText = 'Rate: ' + rate.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' € / Monat';
+      }
+
+      kostenInput.addEventListener('input', updateFinanzierungsrechner);
+      laufzeitInput.addEventListener('input', updateFinanzierungsrechner);
+      updateFinanzierungsrechner();
+    });
+</script>
+</body>
+</html>
